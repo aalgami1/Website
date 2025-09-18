@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portofolio Siswa - SMKN 20 Jakarta</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f0f2f5;
+      --text: #333;
+      --card: rgba(255, 255, 255, 0.9);
+      --primary: #3498db;
+      --dark: #2c3e50;
+      --secondary: #9b59b6;
+      --accent: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #eee;
+      --card: rgba(30, 30, 30, 0.9);
+      --primary: #3498db;
+      --dark: #000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background Animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--warning));
+      background-size: 400% 400%;
+      z-index: -2;
+      animation: gradientBG 15s ease infinite;
+      opacity: 0.1;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.2;
+      }
+      90% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, var(--dark), var(--primary));
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      animation: pulse 4s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      100% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInDown 1s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Navigation Styles */
+    nav {
+      background: var(--primary);
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 15px 0;
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav button::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+
+    nav button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    /* Section Styles */
+    section {
+      display: none;
+      padding: 30px 20px;
+      animation: fadeIn 0.5s ease;
+      min-height: 70vh;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      animation: gradient 3s infinite linear;
+      background-size: 200% 100%;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent), var(--warning));
+      animation: gradient 3s infinite linear;
+      background-size: 200% 100%;
+    }
+
+    /* Login Form Styles */
+    #login-form {
+      max-width: 450px;
+      margin: 120px auto;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      animation: slideInUp 0.8s ease;
+    }
+
+    #login-form::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      opacity: 0.1;
+      animation: rotate 20s infinite linear;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #login-form h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: var(--primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    #login-form input {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    #login-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+      transform: translateY(-3px);
+    }
+
+    #login-form button {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    #login-form button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.5s;
+    }
+
+    #login-form button:hover::before {
+      left: 100%;
+    }
+
+    #login-form button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .error {
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 15px;
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide {
+      animation: slideInUp 0.8s ease;
+    }
+
+    /* Profile Image Styles */
+    .profil-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid var(--primary);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.5s ease;
+      position: relative;
+    }
+
+    .profil-img:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .profil-img::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      z-index: -1;
+      animation: rotate 3s infinite linear;
+      opacity: 0.7;
+    }
+
+    /* List Styles */
+    ul, ol {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 10px;
+      transition: all 0.3s ease;
+    }
+
+    li::before {
+      content: "▶";
+      position: absolute;
+      left: -15px;
+      color: var(--primary);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    li:hover::before {
+      opacity: 1;
+      left: -10px;
+    }
+
+    li:hover {
+      transform: translateX(10px);
+      color: var(--primary);
+    }
+
+    /* Typing Effect */
+    #type-effect {
+      display: inline-block;
+      border-right: 2px solid var(--primary);
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { border-color: var(--primary); }
+      51%, 100% { border-color: transparent; }
+    }
+
+    /* Scroll to Top Button */
+    #scrollToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    #scrollToTop:hover {
+      background: var(--secondary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Loading Animation */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-circle {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0,0,0,0.1);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .profil-img {
+        width: 150px;
+        height: 150px;
+      }
+      
+      #login-form {
+        margin: 80px auto;
+        padding: 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+      }
+
+      nav button {
+        width: 90%;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+
+      .theme-toggle {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 4px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+      width: 0;
+      animation: progress 2s ease-in-out forwards;
+    }
+
+    @keyframes progress {
+      0% { width: 0; }
+      100% { width: var(--progress); }
+    }
+
+    /* Skill Bars */
+    .skill {
+      margin-bottom: 20px;
+    }
+
+    .skill-name {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .skill-bar {
+      height: 10px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .skill-level {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 5px;
+      width: 0;
+      animation: skillLoad 1.5s ease-in-out forwards;
+    }
+
+    @keyframes skillLoad {
+      0% { width: 0; }
+      100% { width: var(--skill-level); }
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding: 20px 0;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15px;
+      height: 100%;
+      width: 3px;
+      background: var(--primary);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-left: 40px;
+      padding-bottom: 30px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: -30px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid var(--bg);
+    }
+
+    .timeline-content {
+      background: var(--card);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: translateX(10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .social-icon:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      background: var(--secondary);
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border-left: 5px solid var(--success);
+      transform: translateX(150%);
+      transition: transform 0.5s ease;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification i {
+      margin-right: 10px;
+      color: var(--success);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-circle"></div>
+  </div>
+
+  <!-- Particles Background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Notification -->
+  <div class="notification" id="notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="notification-text">Login berhasil!</span>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-moon"></i> Mode
+  </button>
+
+  <!-- Login -->
+  <div id="login-form">
+    <h2><i class="fas fa-user-circle"></i> Login</h2>
+    <div class="error" id="login-error"></div>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()"><i class="fas fa-sign-in-alt"></i> Masuk</button>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content" style="display: none;">
+    <header>
+      <h1><i class="fas fa-graduation-cap"></i> Portofolio Siswa</h1>
+      <p><span id="type-effect"></span></p>
+    </header>
+
+    <nav id="main-nav">
+      <button onclick="tampilkan('beranda', this)"><i class="fas fa-home"></i> Beranda</button>
+      <button onclick="tampilkan('data', this)"><i class="fas fa-user"></i> Data Pribadi</button>
+      <button onclick="tampilkan('tugas', this)"><i class="fas fa-tasks"></i> Tugas</button>
+      <button onclick="tampilkan('kontak', this)"><i class="fas fa-address-book"></i> Kontak</button>
+      <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </nav>
+
+    <main>
+      <section id="beranda" class="active">
+        <div class="card">
+          <h2><i class="fas fa-star"></i> Selamat Datang!</h2>
+          <p>Gunakan menu di atas untuk melihat data pribadi, tugas, dan kontak saya.</p>
+          
+          <h3 style="margin-top: 20px;"><i class="fas fa-chart-line"></i> Progress Pembelajaran</h3>
+          <div class="progress-container">
+            <div class="progress-bar" style="--progress: 75%;"></div>
+          </div>
+          
+          <h3 style="margin-top: 20px;"><i class="fas fa-cogs"></i> Keahlian</h3>
+          <div class="skill">
+            <div class="skill-name">
+              <span>HTML & CSS</span>
+              <span>90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 90%;"></div>
+            </div>
+          </div>
+          <div class="skill">
+            <div class="skill-name">
+              <span>JavaScript</span>
+              <span>20%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 20%;"></div>
+            </div>
+          </div>
+          <div class="skill">
+            <div class="skill-name">
+              <span>Desain Web</span>
+              <span>80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-level" style="--skill-level: 80%;"></div>
+            </div>
+          </div>
+          
+          <h3 style="margin-top: 20px;"><i class="fas fa-history"></i> Riwayat Pendidikan</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h4>SMKN 20 Jakarta</h4>
+                <p>2025 - Sekarang</p>
+                <p>Jurusan Rekayasa Perangkat Lunak</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h4>SMPN 226 Jakarta</h4>
+                <p>2023 - 2025</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <h4>SDN 03 Jakarta</h4>
+                <p>2016 - 2023</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="data">
+        <div class="card slide">
+          <h2><i class="fas fa-id-card"></i> Data Pribadi</h2>
+          <div style="text-align:center; margin-bottom:20px;">
+            <img src="foto.jpg" alt="Foto Profil" class="profil-img" />
+          </div>
+          <ul>
+            <li><strong><i class="fas fa-user"></i> Nama:</strong> Muhammad Almahdi</li>
+            <li><strong><i class="fas fa-school"></i> Sekolah:</strong> SMKN 20 Jakarta</li>
+            <li><strong><i class="fas fa-users"></i> Kelas:</strong> 10 RPL</li>
+            <li><strong><i class="fas fa-map-marker-alt"></i> Alamat:</strong> Jakarta, Indonesia</li>
+            <li><strong><i class="fas fa-envelope"></i> Email:</strong> Kudatidur@email.com</li>
+            <li><strong><i class="fas fa-phone"></i> Telepon:</strong> 0898-8276-2213</li>
+          </ul>
+          
+          <h3 style="margin-top: 20px;"><i class="fas fa-info-circle"></i> Tentang Saya</h3>
+          <p>Saya adalah siswa di SMKN 20 Jakarta dengan jurusan Rekayasa Perangkat Lunak. Saya memiliki minat besar dalam pengembangan web dan desain. Saat ini saya sedang mempelajari HTML, CSS, dan JavaScript untuk meningkatkan kemampuan saya dalam membuat website yang menarik dan fungsional.</p>
+          
+          <h3 style="margin-top: 20px;"><i class="fas fa-heart"></i> Minat & Hobi</h3>
+          <ul>
+            <li>Pemrograman Web</li>
+            <li>Desain Grafis</li>
+            <li>Bermain Game</li>
+            <li>Membaca Teknologi</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="tugas">
+        <div class="card">
+          <h2><i class="fas fa-tasks"></i> Daftar Tugas</h2>
+          <ol>
+            <li>
+              <strong>Tugas 1: Desain Web</strong>
+              <p>Membuat desain halaman web menggunakan HTML dan CSS</p>
+              <div class="progress-container">
+                <div class="progress-bar" style="--progress: 100%;"></div>
+              </div>
+            </li>
+            <li>
+              <strong>Tugas 2: HTML Dasar</strong>
+              <p>Mempelajari dan mengimplementasikan tag-tag HTML dasar</p>
+              <div class="progress-container">
+                <div class="progress-bar" style="--progress: 100%;"></div>
+              </div>
+            </li>
+            <li>
+              <strong>Tugas 3: CSS Layout</strong>
+              <p>Membuat layout web yang responsif menggunakan Flexbox dan Grid</p>
+              <div class="progress-container">
+                <div class="progress-bar" style="--progress: 75%;"></div>
+              </div>
+            </li>
+            <li>
+              <strong>Tugas 4: JavaScript Interaktif</strong>
+              <p>Membuat fitur interaktif menggunakan JavaScript</p>
+              <div class="progress-container">
+                <div class="progress-bar" style="--progress: 50%;"></div>
+              </div>
+            </li>
+          </ol>
+          
+          <h3 style="margin-top: 20px;"><i class="fas fa-project-diagram"></i> Proyek Terbaru</h3>
+          <div class="card" style="margin-top: 15px;">
+            <h4>Website Portofolio Pribadi</h4>
+            <p>Website ini adalah proyek terbaru saya yang menampilkan portofolio pribadi dengan desain modern dan fitur-fitur interaktif.</p>
+            <div style="margin-top: 10px;">
+              <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; margin-right: 5px;">HTML</span>
+              <span style="background: var(--secondary); color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; margin-right: 5px;">CSS</span>
+              <span style="background: var(--warning); color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px;">JavaScript</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kontak">
+        <div class="card">
+          <h2><i class="fas fa-address-book"></i> Kontak</h2>
+          <p><i class="fas fa-envelope"></i> Email: Kudatidur@email.com</p>
+          <p><i class="fab fa-instagram"></i> Instagram: @almhdiii_</p>
+          <p><i class="fab fa-whatsapp"></i> WhatsApp: 0898-8276-2213</p>
+          
+          <div class="social-icons">
+            <a href="mailto:Kudatidur@email.com" class="social-icon" style="background: #c71610;">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://instagram.com/almhdiii_" target="_blank" class="social-icon" style="background: #e1306c;">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/6289882762213" target="_blank" class="social-icon" style="background: #25d366;">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://github.com" target="_blank" class="social-icon" style="background: #333;">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          
+          <h3 style="margin-top: 30px;"><i class="fas fa-paper-plane"></i> Kirim Pesan</h3>
+          <form style="margin-top: 15px;">
+            <input type="text" placeholder="Nama Anda" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <input type="email" placeholder="Email Anda" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <textarea placeholder="Pesan Anda" rows="4" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+            <button type="button" onclick="sendMessage()" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+              <i class="fas fa-paper-plane"></i> Kirim Pesan
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer id="main-footer">
+      <p>&copy; 2025 Portofolio Muhammad Almahdi - SMKN 20 Jakarta</p>
+      <p>Dibuat dengan <i class="fas fa-heart" style="color: var(--accent);"></i> oleh Muhammad Almahdi</p>
+    </footer>
+  </div>
+
+  <script>
+    // Initialize particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size
+        const size = Math.random() * 10 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        
+        // Random animation duration
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Typing effect
+    const text = "Selamat datang di portofolio saya...";
+    let index = 0;
+
+    function startTypeEffect() {
+      const el = document.getElementById("type-effect");
+      el.textContent = "";
+      index = 0;
+      const typing = setInterval(() => {
+        if (index < text.length) {
+          el.textContent += text.charAt(index);
+          index++;
+        } else {
+          clearInterval(typing);
+          // Restart typing effect after a pause
+          setTimeout(() => {
+            startTypeEffect();
+          }, 3000);
+        }
+      }, 100);
+    }
+
+    // Theme toggle
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const themeIcon = document.querySelector('.theme-toggle i');
+      if (document.body.classList.contains("dark")) {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+      } else {
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+      }
+    }
+
+    // Login function
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const error = document.getElementById("login-error");
+
+      if (user === "Muhammad Almahdi" && pass === "123") {
+        // Show loader
+        document.getElementById('loader').classList.remove('hidden');
+        
+        setTimeout(() => {
+          document.getElementById("login-form").style.display = "none";
+          document.getElementById("main-content").style.display = "block";
+          document.getElementById("main-nav").style.display = "flex";
+          document.getElementById("main-footer").style.display = "block";
+          tampilkan("beranda", document.querySelector('nav button'));
+          startTypeEffect();
+          error.textContent = "";
+          
+          // Show notification
+          showNotification("Login berhasil! Selamat datang, " + user);
+          
+          // Hide loader
+          document.getElementById('loader').classList.add('hidden');
+        }, 1500);
+      } else {
+        error.textContent = "Username atau password salah!";
+      }
+    }
+
+    // Logout function
+    function logout() {
+      document.getElementById("login-form").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      showNotification("Anda telah berhasil logout!");
+    }
+
+    // Show section
+    function tampilkan(id, btn) {
+      const sections = document.querySelectorAll("main section");
+      sections.forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+
+      const navBtns = document.querySelectorAll("nav button");
+      navBtns.forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+    }
+
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Show/hide scroll to top button
+    window.addEventListener('scroll', () => {
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.style.display = 'block';
+      } else {
+        scrollToTopBtn.style.display = 'none';
+      }
+    });
+
+    // Show notification
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notification-text');
+      
+      notificationText.textContent = message;
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // Send message function
+    function sendMessage() {
+      showNotification("Pesan Anda telah terkirim!");
+      // Reset form
+      const form = document.querySelector('#kontak form');
+      form.reset();
+    }
+
+    // Initialize page
+    window.addEventListener('load', () => {
+      createParticles();
+      
+      // Hide loader after page loads
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1000);
+    });
+
+    // Add enter key support for login
+    document.getElementById('password').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        login();
+      }
+    });
+  </script>
+</body>
+</html>
